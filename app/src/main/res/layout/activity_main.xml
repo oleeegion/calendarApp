@@ -12,25 +12,25 @@
     <!-- Добавьте CalendarView для отображения календаря -->
 
     <TextView
-        android:id="@+id/idTVDate"
+        android:id="@+id/idDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="8dp"
-        android:text="Current Date"
+        android:text="Date"
         app:layout_constraintTop_toBottomOf="@+id/button"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"/>
-<!--        app:layout_constraintBottom_toTopOf="@+id/button" -->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/button" -->
 
 
     <CalendarView
         android:id="@+id/idCalendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/idTVDate"/>
+        app:layout_constraintTop_toBottomOf="@id/idDate"/>
 
     <Button
         android:id="@+id/button"
