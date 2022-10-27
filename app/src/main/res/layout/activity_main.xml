@@ -18,26 +18,43 @@
         android:gravity="center"
         android:padding="8dp"
         android:text="Date"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button_activity"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"/>
     <!--        app:layout_constraintBottom_toTopOf="@+id/button" -->
 
-
-    <CalendarView
-        android:id="@+id/idCalendarView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/idDate"/>
+<!--    <DatePicker-->
+<!--        android:id="@+id/datePicker"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/button_activity"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent" />-->
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btSelectDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Date"
+        tools:ignore="MissingConstraints" />
+
+
+
+<!--    <CalendarView-->
+<!--        android:id="@+id/idCalendarView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/idDate"/>-->
+
+    <Button
+        android:id="@+id/button_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text=">>"
+        android:text="&gt;&gt;"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

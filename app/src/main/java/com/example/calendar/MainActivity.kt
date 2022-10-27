@@ -1,69 +1,89 @@
 package com.example.calendar
-//package com.gtappdevelopers.kotlingfgproject
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.widget.CalendarView
-import android.widget.CalendarView.OnDateChangeListener
+import android.widget.Button
 import android.widget.TextView
-
-
+import androidx.appcompat.app.AppCompatActivity
+import java.time.LocalDateTime
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-    // в строке ниже мы создаем
-    // переменные для текстового представления и представления календаря
-    lateinit var dateTV: TextView
-    lateinit var calendarView: CalendarView
+    lateinit var datePicker: DatePickerHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main) //метод для вызова экрана
 
-        dateTV = findViewById(R.id.idDate)
-        calendarView = findViewById(R.id.idCalendarView)
+
+        datePicker = DatePickerHelper(this)
+        val btSelectDate: TextView = findViewById(R.id.btSelectDate)
+        btSelectDate.setOnClickListener {
+            showDatePickerDialog()
+        }
+
+        val button: Button = findViewById(R.id.button_activity)
+        button.setOnClickListener {
+            val intent = Intent(this, SecondActivity::class.java)
+            startActivity(intent)
+        }
+    }
 
 
-        calendarView.setOnDateChangeListener(
-            OnDateChangeListener {view, year, month, dayOfMonth ->
-                val date = (dayOfMonth.toString() + "." + (month + 1) + "." + year)
-                dateTV.setText(date)
-            })
+
+    private fun showDatePickerDialog() {
+        val dateTV: TextView = findViewById(R.id.idDate)
+        val cal = Calendar.getInstance()
+        val d = cal.get(Calendar.DAY_OF_MONTH)
+        val m = cal.get(Calendar.MONTH)
+        val y = cal.get(Calendar.YEAR)
+        datePicker.showDialog(d, m, y, object: DatePickerHelper.Callback {
+            @SuppressLint("SetTextI18n")
+            override fun onDateSelected(dayOfMonth: Int, month: Int, year: Int) {
+                val dayStr = if (dayOfMonth < 10) "0$dayOfMonth" else "$dayOfMonth"
+                val mon = month + 1
+                val monthStr = if (mon < 10) "0$mon" else "$mon"
+                dateTV.text = "$dayStr.$monthStr.$year"
+            }
+        })
+    }
+}
+//        val dateTV: TextView = findViewById(R.id.idDate)
+//        val calendarView: CalendarView = findViewById(R.id.idCalendarView)
+//        calendarView.setOnDateChangeListener{ view, year, month, dayOfMonth ->
+//            val date = (dayOfMonth.toString() + "." + (month + 1) + "." + year)
+//            dateTV.text = date
+//        }
 
 
+
+
+class DatePickerHelper(context: Context, isSpinnerType: Boolean = false) {
+    private var dialog: DatePickerDialog
+    private var callback: Callback? = null
+    private val listener =
+        DatePickerDialog.OnDateSetListener {datePicker, year, monthOfYear, dayOfMonth ->
+            callback?.onDateSelected(dayOfMonth, monthOfYear, year)
+        }
+    init {
+        val style = if (isSpinnerType) R.style.SpinnerDatePickerDialog else 0
+        val cal = Calendar.getInstance()
+        dialog = DatePickerDialog(context, style, listener,
+            cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
+    }
+    fun showDialog(dayOfMonth: Int, month: Int, year: Int, callback: Callback?) {
+        this.callback = callback
+        dialog.datePicker.init(year, month, dayOfMonth, null)
+        dialog.show()
+    }
+
+    interface Callback {
+        fun onDateSelected(dayOfMonth: Int, month: Int, year: Int)
     }
 }
 
 
-
-//    class MainActivity : AppCompatActivity() {
-//
-//
-//        override fun onCreate(savedInstanceState: Bundle?) {
-//            super.onCreate(savedInstanceState)
-//            setContentView(R.layout.activity_main)
-
-
-//            // инициализация переменных
-//            // представления списка с их идентификаторами.
-//            dateTV = findViewById(R.id.idTVDate)
-//            calendarView = findViewById(R.id.idCalendarView)
-//
-//
-//            // в строке ниже мы добавляем set on
-//            // прослушиватель изменения даты для просмотра календаря.
-//            calendarView.setOnDateChangeListener(
-//                    OnDateChangeListener { view, year, month, dayOfMonth ->
-//                        // В этом Listener мы получаем значения
-//                        // например, год, месяц и день месяца
-//                        // в строке ниже мы создаем переменную
-//                        // в который мы добавляем все переменные в нем.
-//                        val Date = (dayOfMonth.toString() + "-"
-//                                + (month + 1) + "-" + year)
-//
-//                        // установите эту дату в TextView для отображения
-//                        dateTV.setText(Date)
-//                    })
-//        }
-//    }
-//}
