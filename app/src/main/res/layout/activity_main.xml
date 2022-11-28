@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
@@ -8,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--текстовое представление для отображения выбранной даты-->
-    <!-- Добавьте CalendarView для отображения календаря -->
 
     <TextView
         android:id="@+id/idDate"
@@ -18,45 +15,65 @@
         android:gravity="center"
         android:padding="8dp"
         android:text="Date"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:textStyle="bold"/>
-    <!--        app:layout_constraintBottom_toTopOf="@+id/button" -->
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/btSelectDate" />
 
-<!--    <DatePicker-->
-<!--        android:id="@+id/datePicker"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/button_activity"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent" />-->
 
     <Button
         android:id="@+id/btSelectDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Date"
+        android:text="Выбрать дату"
         tools:ignore="MissingConstraints" />
 
-
-
-<!--    <CalendarView-->
-<!--        android:id="@+id/idCalendarView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/idDate"/>-->
 
     <Button
         android:id="@+id/button_activity"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:layout_height="47dp"
         android:text="&gt;&gt;"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"
+        app:layout_constraintTop_toTopOf="@+id/button_task"
+        tools:ignore="MissingConstraints" />
+
+
+    <Button
+        android:id="@+id/button_task"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:text="+"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintTop_toBottomOf="@+id/idDate"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="44dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@+id/editText1"
+        app:layout_constraintTop_toTopOf="@+id/editText1"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

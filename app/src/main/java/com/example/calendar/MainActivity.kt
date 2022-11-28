@@ -1,6 +1,5 @@
 package com.example.calendar
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
@@ -8,17 +7,18 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import java.time.LocalDateTime
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var datePicker: DatePickerHelper
+//    var pref: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main) //метод для вызова экрана
 
+//        pref = getSharedPreferences("table", Context.MODE_PRIVATE)
 
         datePicker = DatePickerHelper(this)
         val btSelectDate: TextView = findViewById(R.id.btSelectDate)
@@ -26,11 +26,19 @@ class MainActivity : AppCompatActivity() {
             showDatePickerDialog()
         }
 
-        val button: Button = findViewById(R.id.button_activity)
-        button.setOnClickListener {
+        val buttonAct: Button = findViewById(R.id.button_activity)
+        buttonAct.setOnClickListener {
             val intent = Intent(this, SecondActivity::class.java)
             startActivity(intent)
         }
+
+        val buttonTest: Button = findViewById(R.id.button_test)
+        buttonTest.setOnClickListener {
+            val intent = Intent(this, TestActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
 
 
@@ -42,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         val m = cal.get(Calendar.MONTH)
         val y = cal.get(Calendar.YEAR)
         datePicker.showDialog(d, m, y, object: DatePickerHelper.Callback {
-            @SuppressLint("SetTextI18n")
+
             override fun onDateSelected(dayOfMonth: Int, month: Int, year: Int) {
                 val dayStr = if (dayOfMonth < 10) "0$dayOfMonth" else "$dayOfMonth"
                 val mon = month + 1
@@ -52,13 +60,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 }
-//        val dateTV: TextView = findViewById(R.id.idDate)
-//        val calendarView: CalendarView = findViewById(R.id.idCalendarView)
-//        calendarView.setOnDateChangeListener{ view, year, month, dayOfMonth ->
-//            val date = (dayOfMonth.toString() + "." + (month + 1) + "." + year)
-//            dateTV.text = date
-//        }
-
 
 
 
@@ -85,5 +86,7 @@ class DatePickerHelper(context: Context, isSpinnerType: Boolean = false) {
         fun onDateSelected(dayOfMonth: Int, month: Int, year: Int)
     }
 }
+
+
 
 
