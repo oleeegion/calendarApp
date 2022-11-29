@@ -17,12 +17,14 @@ class TestActivity : AppCompatActivity() {
         val db: TaskDatabase = Room.databaseBuilder(
             applicationContext,
             TaskDatabase::class.java, "room-database"
-            ).build()
+            ).allowMainThreadQueries()
+             .build()
 
 
         val taskDao = db.getTaskDao()
-            val task = TaskEntity(0, "testTasks", "01/02/1973")
+            val task = TaskEntity(1, "testTasks", "01/02/1973")
             taskDao.addTask(task)
+            taskDao.deleteTask(task)
             val query = taskDao.getById(1)
             if (query != null) {
                 println("task added. Name: " + query.name + query.id)
