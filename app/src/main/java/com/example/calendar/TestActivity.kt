@@ -19,18 +19,20 @@ class TestActivity : AppCompatActivity() {
             TaskDatabase::class.java, "room-database"
             ).allowMainThreadQueries()
              .build()
-
-
+//
+//
         val taskDao = db.getTaskDao()
-            val task = TaskEntity(1, "testTasks", "01/02/1973")
-            taskDao.addTask(task)
-            taskDao.deleteTask(task)
-            val query = taskDao.getById(1)
-            if (query != null) {
-                println("task added. Name: " + query.name + query.id)
-            } else {
-                println("Пустая строка")
-            }
+//        taskDao.deleteAll()
+//        val task = TaskEntity(null, "testNull", "01/02/1973")
+//        val query = taskDao.getAll()
+//        println(query)
+//        if (query != null) {
+//            println("task added. Name: " + query.name + query.id)
+//        } else {
+//            println("Пустая строка")
+//        }
+
+
 
 
 
@@ -39,13 +41,12 @@ class TestActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
         val button: Button = findViewById(R.id.button_test)
         button.setOnClickListener {
-            println("Пустая строка")
-//            val taskDao = db.getTaskDao()
-//
-//            val print = taskDao.getAll()
-//            print(print)
+            val query = taskDao.getAll()
+//            taskDao.addTask(TaskEntity(0, "testTask", "01.02.2003"))
+            println(query)
 
 //            if (query != null) {
 //                print("task added. Name: " + query.name + query.id)

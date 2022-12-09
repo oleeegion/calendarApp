@@ -26,4 +26,7 @@ interface TaskDao {
 
     @Delete
     fun deleteTask(taskEntity: TaskEntity)
+
+    @Query("DELETE FROM task")
+    fun deleteAll()
 }
