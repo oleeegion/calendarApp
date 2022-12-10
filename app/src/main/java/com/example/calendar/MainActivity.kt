@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
-import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         val taskDao = db.getTaskDao()
 
         currentDate()
-        refreshListView(db)
+        refreshRecyclerView(db)
 
 
 
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
         val buttonRefresh: Button = findViewById(R.id.button_task)
         buttonRefresh.setOnClickListener {
-            refreshListView(db)
+            refreshRecyclerView(db)
         }
         val buttonAdd: ImageButton = findViewById(R.id.imageButton1)
         buttonAdd.setOnClickListener {
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             if (text.isNotEmpty()) {
                 taskDao.addTask(TaskEntity(0, text, dateTV.text.toString()))
                 editText.text.clear()
-                refreshListView(db)
+                refreshRecyclerView(db)
             }
             else
                 Toast.makeText(applicationContext, "Введите задачу", Toast.LENGTH_SHORT).show()
@@ -83,37 +82,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun refreshListView(database: TaskDatabase) {
+    fun refreshRecyclerView(database: TaskDatabase) {
         val taskDao = database.getTaskDao()
         val dateTV: TextView = findViewById(R.id.idDate)
-
         val selectedDate = dateTV.text.toString()
-        val taskNameId: MutableList<TaskEntity> = mutableListOf()
-        val taskEntities: List<TaskEntity> = taskDao.getAll()
-
-        for (entity in taskEntities) {
-            if (entity.date == selectedDate) {
-                taskNameId.add(entity)
-            }
-        }
+        val taskEntities: List<TaskEntity> = taskDao.getAll().filter { it.date == selectedDate }
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = RecyclerAdapter(taskNameId, selectedDate)
-
-
-
-//        val adapter = ArrayAdapter(
-//            applicationContext,
-//            android.R.layout.simple_list_item_1, taskEntities)
-//        listView.adapter = adapter
-//
-//        listView.onItemClickListener = OnItemClickListener { _, _, position, _ ->
-//
-//            println("heh")
-///     }
+        recyclerView.adapter = RecyclerAdapter(taskEntities)
     }
-//
 
 
     private fun showDatePickerDialog(database: TaskDatabase) {
@@ -129,14 +107,11 @@ class MainActivity : AppCompatActivity() {
                 val mon = month + 1
                 val monthStr = if (mon < 10) "0$mon" else "$mon"
                 dateTV.text = "$dayStr.$monthStr.$year"
-                refreshListView(database)
+                refreshRecyclerView(database)
             }
         })
     }
-
-
 }
-
 
 
 class DatePickerHelper(context: Context, isSpinnerType: Boolean = false) {
