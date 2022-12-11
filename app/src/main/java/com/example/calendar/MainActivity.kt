@@ -48,15 +48,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SecondActivity::class.java)
             startActivity(intent)
         }
-        val buttonTest: Button = findViewById(R.id.button_test)
-        buttonTest.setOnClickListener {
-            val intent = Intent(this, TestActivity::class.java)
-            startActivity(intent)
-        }
-        val buttonRefresh: Button = findViewById(R.id.button_task)
-        buttonRefresh.setOnClickListener {
-            refreshRecyclerView(db)
-        }
+
         val buttonAdd: ImageButton = findViewById(R.id.imageButton1)
         buttonAdd.setOnClickListener {
             val dateTV: TextView = findViewById(R.id.idDate)
@@ -139,16 +131,6 @@ class DatePickerHelper(context: Context, isSpinnerType: Boolean = false) {
 
 }
 
-//fun refreshRecyclerView1(database: TaskDatabase) {
-//    val taskDao = database.getTaskDao()
-//    val dateTV: TextView = findViewById(R.id.idDate)
-//    val selectedDate = dateTV.text.toString()
-//    val taskEntities: List<TaskEntity> = taskDao.getAll().filter { it.date == selectedDate }
-//
-//    val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-//    recyclerView.layoutManager = LinearLayoutManager(this)
-//    recyclerView.adapter = RecyclerAdapter(taskEntities, taskDao)
-//}
 
 
 

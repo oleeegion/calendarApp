@@ -6,6 +6,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffd1dc"
     tools:context=".SecondActivity">
 
 
@@ -16,6 +17,15 @@
 
         android:text="&lt;&lt;"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выбрать группу"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_return2"
         app:layout_constraintTop_toTopOf="parent" />
 
 
