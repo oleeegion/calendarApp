@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         dateTV.text = formatted
     }
 
-
     fun refreshRecyclerView(database: TaskDatabase) {
         val taskDao = database.getTaskDao()
         val dateTV: TextView = findViewById(R.id.idDate)
@@ -90,7 +89,8 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = RecyclerAdapter(taskEntities)
+        recyclerView.adapter = RecyclerAdapter(taskEntities, taskDao, database, this)
+
     }
 
 
@@ -139,7 +139,16 @@ class DatePickerHelper(context: Context, isSpinnerType: Boolean = false) {
 
 }
 
-
+//fun refreshRecyclerView1(database: TaskDatabase) {
+//    val taskDao = database.getTaskDao()
+//    val dateTV: TextView = findViewById(R.id.idDate)
+//    val selectedDate = dateTV.text.toString()
+//    val taskEntities: List<TaskEntity> = taskDao.getAll().filter { it.date == selectedDate }
+//
+//    val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+//    recyclerView.layoutManager = LinearLayoutManager(this)
+//    recyclerView.adapter = RecyclerAdapter(taskEntities, taskDao)
+//}
 
 
 
